@@ -29,19 +29,10 @@ fn main() -> Result<(), Box<dyn Error>> {
       last: *cur,
       count: 0,
     }),
-    Some(IncreaseCounting { last, count }) => {
-      if *cur > last {
-        Some(IncreaseCounting {
-          last: *cur,
-          count: count + 1,
-        })
-      } else {
-        Some(IncreaseCounting {
-          last: *cur,
-          count: count,
-        })
-      }
-    }
+    Some(IncreaseCounting { last, count }) => Some(IncreaseCounting {
+      last: *cur,
+      count: if *cur > last { count + 1 } else { count },
+    }),
   });
   println!("Part 1: {}", p1.unwrap().count);
 
@@ -52,19 +43,10 @@ fn main() -> Result<(), Box<dyn Error>> {
         last: sum,
         count: 0,
       }),
-      Some(IncreaseCounting { last, count }) => {
-        if sum > last {
-          Some(IncreaseCounting {
-            last: sum,
-            count: count + 1,
-          })
-        } else {
-          Some(IncreaseCounting {
-            last: sum,
-            count: count,
-          })
-        }
-      }
+      Some(IncreaseCounting { last, count }) => Some(IncreaseCounting {
+        last: sum,
+        count: if sum > last { count + 1 } else { count },
+      }),
     }
   });
   println!("Part 2: {}", p2.unwrap().count);
