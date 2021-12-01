@@ -24,14 +24,14 @@ fn main() -> Result<(), Box<dyn Error>> {
     count: i32,
   }
 
-  let p1 = lines.iter().fold(None, |state, cur| match state {
+  let p1 = lines.iter().fold(None, |state, &cur| match state {
     None => Some(IncreaseCounting {
-      last: *cur,
+      last: cur,
       count: 0,
     }),
     Some(IncreaseCounting { last, count }) => Some(IncreaseCounting {
-      last: *cur,
-      count: if *cur > last { count + 1 } else { count },
+      last: cur,
+      count: if cur > last { count + 1 } else { count },
     }),
   });
   println!("Part 1: {}", p1.unwrap().count);
